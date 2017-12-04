@@ -8,12 +8,13 @@ def get_galco_info(result):
     trees = lh.document_fromstring(response.content).xpath('//*[@id="specs"]/div/div')
     try:
         print ("Im coming in galco")
+        json_content = {}
         for tree in trees:
             galco_soup = BeautifulSoup(lh.tostring(tree, pretty_print=True), "lxml")
             row_divs = galco_soup.findAll("div", { "class" : "row" })
-            for row_div in row_divs:
-                for item in [div.text.strip() for div in row_div.find_all('div')]:
-                    print item
+            for inside_div in row_divs:
+                print inside_div.findAll("div", { "class" : "row" })
+        print json_content
     except Exception as e:
         print e
 
